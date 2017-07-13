@@ -1,0 +1,6 @@
+c:\users\iulia\documents\visual studio 2015\Projects\SummerCamp2017\DataModel\bin\Debug\DataModel.exe.config
+c:\users\iulia\documents\visual studio 2015\Projects\SummerCamp2017\DataModel\bin\Debug\DataModel.exe
+c:\users\iulia\documents\visual studio 2015\Projects\SummerCamp2017\DataModel\bin\Debug\DataModel.pdb
+c:\users\iulia\documents\visual studio 2015\Projects\SummerCamp2017\DataModel\obj\Debug\DataModel.csprojResolveAssemblyReference.cache
+c:\users\iulia\documents\visual studio 2015\Projects\SummerCamp2017\DataModel\obj\Debug\DataModel.exe
+c:\users\iulia\documents\visual studio 2015\Projects\SummerCamp2017\DataModel\obj\Debug\DataModel.pdb

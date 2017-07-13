@@ -1,0 +1,123 @@
+﻿@model MVC.Models.ReviewsPerAnnouncement
+
+@{
+    ViewBag.Title = "List";
+}
+
+@section Styles {
+    <link href="~/Content/Reviews.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    @*<link href="~/Content/RatingStars.css" rel="stylesheet" type="text/css" />*@
+}
+
+<div>
+
+</div>
+<p> </p>
+<i class="fa fa-chevron-left" aria-hidden="true" style="color:cornflowerblue"> </i> @Html.ActionLink("Back to announcements", "List", "Announcements")
+@Html.Action("Details", "Announcements", new { id = Model.CurrentAnnouncementId })
+@Html.Label("Average rating:")
+@Html.DisplayFor(model => model.AverageRating)<text>/5</text> 
+    <h2>Reviews</h2>
+
+    <p>
+        <span class="glyphicon glyphicon-plus" style="color:cornflowerblue"></span> @Html.ActionLink("Add review", "Create", new { idAnn = Model.CurrentAnnouncementId }, null)
+        @*@Html.Action("Create", "Reviews", new { idAnn = Model.CurrentAnnouncementId })*@
+    </p>
+
+@foreach (var item in Model.Reviews)
+{
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-8">
+                <div class="panel panel-white post panel-shadow">
+                    <div class="post-heading">
+                        <div class="pull-left meta">
+                            <div class="title h5">
+                                <a href="#"><b>@item.Username</b></a>
+                            </div>
+                            <h6 class="text-muted time">@item.DatePosted</h6>
+                        </div>
+                    </div>
+                    <div class="rating">
+                        @if (@item.Rating != null)
+                        {
+                            if (item.Rating % 1 == 0)
+                            {
+                                for (var i = 0; i < @item.Rating; i++)
+                                {
+                                <i class="fa fa-star" aria-hidden="true" style="display:inline; color: #FFD700"></i>
+                                }
+
+                                if (@item.Rating < 5)
+                                {
+                                    for (var j = @item.Rating; j < 5; j++)
+                                    {
+                                    <i class="fa fa-star-o" aria-hidden="true" style="display:inline; color: #FFD700"></i>
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                for (var i = 0; i < @item.Rating - 1; i++)
+                                {
+                                <i class="fa fa-star" aria-hidden="true" style="display:inline; color: #FFD700"></i>
+                                }
+                            <i class="fa fa-star-half-o" aria-hidden="true" style="display:inline; color: #FFD700"></i>
+
+                                if (@item.Rating < 5)
+                                {
+                                    for (var j = @item.Rating + 1; j < 5; j++)
+                                    {
+                                    <i class="fa fa-star-o" aria-hidden="true" style="display:inline; color: #FFD700"></i>
+                                    }
+                                }
+                            }
+                        }
+                    </div>
+
+                    <div class="post-description">
+                        <p>@item.Comment</p>
+                        
+                    </div>
+                </div>
+            </div>
+         </div>
+       </div>
+}
+
+            @*<table class="table">
+                <tr>
+                    <th>
+                        Rating
+                    </th>
+                    <th>
+                        Comment
+                    </th>
+                    <th>
+                        Username
+                    </th>
+                    <th></th>
+                </tr>
+
+                @foreach (var item in Model.Reviews)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Rating)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Comment)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Username)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", new { idAnn = Model.CurrentAnnouncementId, id = item.ReviewId }) |
+                            @Html.ActionLink("Details", "Details", new { idAnn = Model.CurrentAnnouncementId, id = item.ReviewId }) |
+                            @Html.ActionLink("Delete", "Delete", new { idAnn = Model.CurrentAnnouncementId, id = item.ReviewId })
+                        </td>
+                    </tr>
+                }
+
+            </table>*@

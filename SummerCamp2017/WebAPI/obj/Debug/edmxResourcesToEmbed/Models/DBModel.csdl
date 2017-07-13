@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="SummerCampDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="SummerCampDBEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Announcements" EntityType="SummerCampDBModel.Announcement" />
+    <EntitySet Name="Categories" EntityType="SummerCampDBModel.Category" />
+    <EntitySet Name="Reviews" EntityType="SummerCampDBModel.Review" />
+    <AssociationSet Name="FK_Announcement_Category" Association="SummerCampDBModel.FK_Announcement_Category">
+      <End Role="Category" EntitySet="Categories" />
+      <End Role="Announcement" EntitySet="Announcements" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Review_Announcement" Association="SummerCampDBModel.FK_Review_Announcement">
+      <End Role="Announcement" EntitySet="Announcements" />
+      <End Role="Review" EntitySet="Reviews" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Announcement">
+    <Key>
+      <PropertyRef Name="AnnouncementId" />
+    </Key>
+    <Property Name="AnnouncementId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Phonenumber" Type="String" Nullable="false" MaxLength="16" FixedLength="false" Unicode="false" />
+    <Property Name="Email" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="false" />
+    <Property Name="PostDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ExpirationDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="CategoryId" Type="Int32" Nullable="false" />
+    <Property Name="Closed" Type="Boolean" Nullable="false" />
+    <Property Name="Title" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="false" />
+    <Property Name="Description" Type="String" MaxLength="1024" FixedLength="false" Unicode="false" />
+    <Property Name="Confirmed" Type="Boolean" />
+    <NavigationProperty Name="Category" Relationship="SummerCampDBModel.FK_Announcement_Category" FromRole="Announcement" ToRole="Category" />
+    <NavigationProperty Name="Reviews" Relationship="SummerCampDBModel.FK_Review_Announcement" FromRole="Announcement" ToRole="Review" />
+  </EntityType>
+  <EntityType Name="Category">
+    <Key>
+      <PropertyRef Name="CategoryId" />
+    </Key>
+    <Property Name="CategoryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="32" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Announcements" Relationship="SummerCampDBModel.FK_Announcement_Category" FromRole="Category" ToRole="Announcement" />
+  </EntityType>
+  <EntityType Name="Review">
+    <Key>
+      <PropertyRef Name="ReviewId" />
+    </Key>
+    <Property Name="ReviewId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Rating" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Comment" Type="String" MaxLength="512" FixedLength="false" Unicode="false" />
+    <Property Name="Username" Type="String" Nullable="false" MaxLength="64" FixedLength="false" Unicode="false" />
+    <Property Name="AnnouncementId" Type="Int32" Nullable="false" />
+    <Property Name="DatePosted" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Announcement" Relationship="SummerCampDBModel.FK_Review_Announcement" FromRole="Review" ToRole="Announcement" />
+  </EntityType>
+  <Association Name="FK_Announcement_Category">
+    <End Type="SummerCampDBModel.Category" Role="Category" Multiplicity="1" />
+    <End Type="SummerCampDBModel.Announcement" Role="Announcement" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Category">
+        <PropertyRef Name="CategoryId" />
+      </Principal>
+      <Dependent Role="Announcement">
+        <PropertyRef Name="CategoryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Review_Announcement">
+    <End Type="SummerCampDBModel.Announcement" Role="Announcement" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="SummerCampDBModel.Review" Role="Review" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Announcement">
+        <PropertyRef Name="AnnouncementId" />
+      </Principal>
+      <Dependent Role="Review">
+        <PropertyRef Name="AnnouncementId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>
